@@ -1,0 +1,48 @@
+@import 'reset';
+@import 'elements';
+@import 'colors';
+@import url(http://fonts.googleapis.com/css?family=Quicksand);
+
+body {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    .gradient(black, black, @deep_blue_corn);
+    font-family: 'Quicksand', sans-serif;
+}
+
+#iron-war {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+input, button {
+    width: 10em;
+    height: 1.5em;
+    border: 1px solid darken(@jardin_magico, 20);
+    background-color: darken(@deep_blue_corn, 10);
+    color: @jardin_magico;
+    cursor: default;
+}
+
+input:active, button:active {
+    border: 1px solid @jardin_magico;
+    background-color: @deep_blue_corn;
+}
+
+input:-moz-placeholder, textarea:-moz-placeholder {
+    color: darken(@jardin_magico, 20);
+}
+ 
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+    color: darken(@jardin_magico, 20);
+}
+
+label {
+    color: @mi_tia_locha;
+}
+
+@import 'views';

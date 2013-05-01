@@ -1,0 +1,74 @@
+@charset 'UTF-8';
+
+
+button::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+
+    background-repeat: no-repeat;
+
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+    font-size: inherit;
+}
+
+a {
+    text-decoration: none;
+
+    img {
+        border: 0;
+    }
+}
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+}
+
+input,
+textarea {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
+
+input,
+textarea,
+button,
+select {
+    color: inherit;
+
+    font-size: inherit;
+    font-family: inherit;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+button {
+    cursor:pointer;
+
+}
+/*to prevent button's traduction cursor bug*/
+span {
+    cursor:inherit;
+}

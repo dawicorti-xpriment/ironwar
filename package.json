@@ -1,0 +1,11 @@
+{
+      "name": "ironwar",
+      "description": "IronWar game sources",
+      "version": "0.0.1",
+      "private": true,
+      "dependencies": {
+          "express": "3.x",
+          "file": "0.2.x",
+          "requirejs": "2.x"
+      }
+}
