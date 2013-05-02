@@ -8,6 +8,7 @@ define(function (require) {
     IronWar.Object = require('core/object');
     IronWar.View = require('core/view');
     IronWar.Utils = require('core/utils');
+    IronWar.Loader = require('core/loader');
 
     IronWar.utils = new IronWar.Utils();
 

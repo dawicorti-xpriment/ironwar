@@ -11,6 +11,11 @@ define(function (require) {
     return IronWar.View.extend({
 
         template: template,
+        resources: {
+            required: [
+                {name: 'logo', type: 'image', path: '/assets/images/logo.png'}
+            ]
+        }
 
     });
 
