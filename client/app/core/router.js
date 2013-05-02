@@ -1,10 +1,12 @@
 /*global define,window*/
+/*jslint nomen: true*/
 "use strict";
 
 define(function (require) {
 
     var Backbone = require('backbone'),
         $ = require('jquery'),
+        _  = require('underscore'),
         ParticlesBackground = require('views/particlesbackground/view'),
         LoginForm = require('views/loginform/view');
 
@@ -20,17 +22,29 @@ define(function (require) {
             this.renderInterfaceSpace(LoginForm);
         },
 
-        renderInterfaceSpace: function (ViewType, options) {
-            var IronWar = require('core/namespace');
+        onTrackLoaded: function () {
             if ($('.' + ParticlesBackground.prototype.className, $('body')).length === 0) {
                 $('body').append((new ParticlesBackground()).render().el);
             }
+            this.render(this.next.ViewType, this.next.options);
+        },
+
+        renderInterfaceSpace: function (ViewType, options) {
+            var IronWar = require('core/namespace');
             if (IronWar.audioPlayer.currentTrack !== this.interfaceTrack) {
+                this.next = {
+                    ViewType: ViewType,
+                    options: options
+                };
                 IronWar.audioPlayer.play({
                     url: this.interfaceTrack,
-                    loop: true
+                    loop: true,
+                    load: this.onTrackLoaded
                 });
             } else {
+                if ($('.' + ParticlesBackground.prototype.className, $('body')).length === 0) {
+                    $('body').append((new ParticlesBackground()).render().el);
+                }
                 this.render(ViewType, options);
             }
         },
@@ -41,6 +55,7 @@ define(function (require) {
         },
 
         start: function () {
+            _.bindAll(this);
             this.container = $('<div></div>').attr('id', 'iron-war');
             $(window.document.body).html(this.container);
             Backbone.history.start();
