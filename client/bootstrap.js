@@ -1,15 +1,10 @@
-(function () {
-
+require(['jquery', 'core/game'], function ($, Game) {
     var bootstrap = {};
     
-    bootstrap.loadGame = function () {
-        require(['core/game'], bootstrap.startGame);
-    };
-
-    bootstrap.startGame = function (Game) {
+    bootstrap.startGame = function () {
         var game = new Game();
         game.start();
     };
 
-    window.addEventListener('load', bootstrap.loadGame);
-})(this);
+    $(bootstrap.startGame);
+});

@@ -10,7 +10,7 @@ define(function (require) {
     return Backbone.Router.extend({
 
         routes: {
-            'login': 'login',
+            'login': 'login'
         },
 
         login: function () {

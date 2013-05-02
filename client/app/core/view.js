@@ -46,7 +46,7 @@ define(function (require) {
                 this.fill();
             }
             return this;
-        },
+        }
 
     });
 
