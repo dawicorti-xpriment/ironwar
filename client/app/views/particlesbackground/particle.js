@@ -32,9 +32,7 @@ define(function (require) {
         drawLeftToRightGradient: function () {
             var gradient = this.ctx.createLinearGradient(0, 0, this.gradientWidth, 0);
             gradient.addColorStop(0, 'rgba(255, 255, 255, 0)');
-            gradient.addColorStop(0.7, 'rgba(255, 255, 255, 0.05)');
-            gradient.addColorStop(0.9, 'rgba(255, 255, 255, 0.1)');
-            gradient.addColorStop(1, 'rgba(255, 255, 255, 0.3)');
+            gradient.addColorStop(1, 'rgba(255, 255, 255, 0.1)');
             this.ctx.fillStyle = gradient;
             this.ctx.fillRect(
                 this.x + this.size / 2 - this.gradientWidth,
@@ -46,9 +44,7 @@ define(function (require) {
 
         drawRightToLeftGradient: function () {
             var gradient = this.ctx.createLinearGradient(0, 0, this.gradientWidth, 0);
-            gradient.addColorStop(0, 'rgba(255, 255, 255, 0.3)');
-            gradient.addColorStop(0.1, 'rgba(255, 255, 255, 0.1)');
-            gradient.addColorStop(0.3, 'rgba(255, 255, 255, 0.05)');
+            gradient.addColorStop(0, 'rgba(255, 255, 255, 0.1)');
             gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
             this.ctx.fillStyle = gradient;
             this.ctx.fillRect(
