@@ -25,14 +25,15 @@ define(function (require) {
         onTrackEnd: function () {
             this.track.play();
         },
-
         render: function () {
+            var trackId = '732520';
             this.track = new Audio();
             this.track.addEventListener('loadedmetadata', this.onTrackReady);
-            this.track.src = 'http://storage-new2.newjamendo.com/tracks/732520_96.mp3';
+            this.track.src = '/assets/music/la_busqueda_de_lanna.ogg';
             return this;
         }
 
     });
 
 });
+
