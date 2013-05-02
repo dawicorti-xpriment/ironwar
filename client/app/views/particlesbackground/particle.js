@@ -21,6 +21,7 @@ define(function (require) {
             this.$canvas = options.$canvas;
             this.direction = Math.random() * 2 < 1 ? -1 : 1;
             this.id = IronWar.utils.uuid();
+            this.gradientWidth = Math.random() * this.$canvas.width() / 2;
             this.velocity = Math.random() * (this.maxVelocity - this.minVelocity) + this.minVelocity;
             this.x = (this.$canvas.width() / 2) - (this.direction * this.$canvas.width() / 2);
             this.y = Math.random() * this.$canvas.height();
@@ -28,37 +29,49 @@ define(function (require) {
             this.lastDrawTime = Date.now();
         },
 
+        drawLeftToRightGradient: function () {
+            var gradient = this.ctx.createLinearGradient(0, 0, this.gradientWidth, 0);
+            gradient.addColorStop(0, 'rgba(255, 255, 255, 0)');
+            gradient.addColorStop(0.7, 'rgba(255, 255, 255, 0.05)');
+            gradient.addColorStop(0.9, 'rgba(255, 255, 255, 0.1)');
+            gradient.addColorStop(1, 'rgba(255, 255, 255, 0.3)');
+            this.ctx.fillStyle = gradient;
+            this.ctx.fillRect(
+                this.x + this.size / 2 - this.gradientWidth,
+                this.y + this.size / 2,
+                this.gradientWidth,
+                1
+            );
+        },
+
+        drawRightToLeftGradient: function () {
+            var gradient = this.ctx.createLinearGradient(0, 0, this.gradientWidth, 0);
+            gradient.addColorStop(0, 'rgba(255, 255, 255, 0.3)');
+            gradient.addColorStop(0.1, 'rgba(255, 255, 255, 0.1)');
+            gradient.addColorStop(0.3, 'rgba(255, 255, 255, 0.05)');
+            gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+            this.ctx.fillStyle = gradient;
+            this.ctx.fillRect(
+                this.x + this.size / 2,
+                this.y + this.size / 2,
+                this.gradientWidth,
+                1
+            );
+        },
+
+        drawGradient: function () {
+            if (this.direction === -1) {
+                this.drawRightToLeftGradient();
+            } else {
+                this.drawLeftToRightGradient();
+            }
+        },
+
         draw: function () {
-            var currentTime = Date.now(),
-                gradient;
+            var currentTime = Date.now();
             this.x += this.direction * (currentTime - this.lastDrawTime) * this.velocity;
             this.lastDrawTime = currentTime;
-            gradient = this.ctx.createLinearGradient(0, 0, this.$canvas.width() / 2, 0);
-            if (this.direction === -1) {
-                gradient.addColorStop(0, 'rgba(255, 255, 255, 0.3)');
-                gradient.addColorStop(0.1, 'rgba(255, 255, 255, 0.1)');
-                gradient.addColorStop(0.3, 'rgba(255, 255, 255, 0.05)');
-                gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
-                this.ctx.fillStyle = gradient;
-                this.ctx.fillRect(
-                    this.x + this.size / 2,
-                    this.y + this.size / 2,
-                    this.$canvas.width() / 2,
-                    1
-                );
-            } else {
-                gradient.addColorStop(0, 'rgba(255, 255, 255, 0)');
-                gradient.addColorStop(0.7, 'rgba(255, 255, 255, 0.05)');
-                gradient.addColorStop(0.9, 'rgba(255, 255, 255, 0.1)');
-                gradient.addColorStop(1, 'rgba(255, 255, 255, 0.3)');
-                this.ctx.fillStyle = gradient;
-                this.ctx.fillRect(
-                    this.x + this.size / 2 - this.$canvas.width() / 2,
-                    this.y + this.size / 2,
-                    this.$canvas.width() / 2,
-                    1
-                );
-            }
+            this.drawGradient();
             this.ctx.drawImage(this.image, this.x, this.y, this.size, this.size);
         }
 

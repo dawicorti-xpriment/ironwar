@@ -13,11 +13,12 @@ define(function (require) {
 
     IronWarView = Backbone.View.extend({
 
-        initialize: function (options) {
+        construct: function (options) {
             this.cid = _.uniqueId('view');
             this._configure(options || {});
             this._ensureElement();
             this.delegateEvents();
+            this.initialize(options);
         },
 
         load: function () {

@@ -8,9 +8,12 @@ define(function (require) {
         local = {};
 
     function IronWarObject(options) {
-        this.initialize(options);
+        this.construct(options);
     }
 
+    IronWarObject.prototype.construct = function (options) {
+        this.initialize(options);
+    };
     IronWarObject.prototype.initialize = function (options) {};
 
     local.addChildUtils = function (ChildConstructor, constructor) {
@@ -22,7 +25,7 @@ define(function (require) {
     local.getChildConstructor = function (constructor, definition) {
         function ChildConstructor(options) {
             _.bindAll(this);
-            this.initialize(options);
+            this.construct(options);
         }
         _.extend(ChildConstructor.prototype, constructor.prototype);
         _.extend(ChildConstructor.prototype, definition);

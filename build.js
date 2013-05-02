@@ -52,7 +52,7 @@ requirejs.optimize({
                 exports: 'Backbone'
             }
         },
-        deps: ['hbs'],
+        deps: ['hbs', '../lib/howler'],
         baseUrl: "client/app",
         optimize: 'none',
         name: 'core/game',

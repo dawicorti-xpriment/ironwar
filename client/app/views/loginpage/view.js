@@ -13,23 +13,18 @@ define(function (require) {
 
         className: 'login-page',
 
-        onTrackReady: function () {
-            this.track.play();
-            this.track.addEventListener('ended', this.onTrackEnd);
+        onTrackLoaded: function () {
             this.$el.append(
                 (new ParticlesBackground()).render().el,
                 (new LoginForm()).render().el
             );
         },
 
-        onTrackEnd: function () {
-            this.track.play();
-        },
         render: function () {
-            var trackId = '732520';
-            this.track = new window.Audio();
-            this.track.addEventListener('loadedmetadata', this.onTrackReady);
-            this.track.src = '/assets/music/la_busqueda_de_lanna.ogg';
+            IronWar.audioPlayer.play({
+                url: '/assets/music/la_busqueda_de_lanna.ogg',
+                load: this.onTrackLoaded
+            });
             return this;
         }
 
