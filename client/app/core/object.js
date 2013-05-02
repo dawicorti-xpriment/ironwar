@@ -17,11 +17,6 @@ define(function (require) {
         ChildConstructor.prototype.getPrototype = function () {
             return ChildConstructor.prototype;
         };
-        ChildConstructor.prototype.super = function () {
-            var funcName = arguments[0],
-                args = _.rest(arguments);
-            constructor.prototype[funcName].apply(this, args);
-        }
     };
 
     local.getChildConstructor = function (constructor, definition) {

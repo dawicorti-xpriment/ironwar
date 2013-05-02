@@ -24,7 +24,7 @@ define(function (require) {
                 if (!_.isFunction(this.getPrototype()._template)) {
                     this.getPrototype()._template = Handlebars.compile(this.template);
                 }
-                this.$el.html(this.getPrototype()._template(this));                
+                this.$el.html(this.getPrototype()._template(this));
             }
             return this;
         },

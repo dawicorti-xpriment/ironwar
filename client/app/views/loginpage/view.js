@@ -27,7 +27,7 @@ define(function (require) {
         },
         render: function () {
             var trackId = '732520';
-            this.track = new Audio();
+            this.track = new window.Audio();
             this.track.addEventListener('loadedmetadata', this.onTrackReady);
             this.track.src = '/assets/music/la_busqueda_de_lanna.ogg';
             return this;

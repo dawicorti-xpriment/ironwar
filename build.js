@@ -28,11 +28,15 @@ requirejs.optimize({
             jquery: '../lib/jquery-1.9.1',
             handlebars: '../lib/handlebars',
             underscore: '../lib/underscore',
+            uuid: '../lib/uuid-v4',
             backbone: '../lib/backbone'
         },
         shim: {
             hbs: {
                 deps: ['text']
+            },
+            uuid: {
+                exports: 'UUID'
             },
             handlebars: {
                 exports: 'Handlebars',

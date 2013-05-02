@@ -36,7 +36,7 @@ define(function (require) {
                 var particle = new Particle({
                     ctx: this.ctx,
                     $canvas: this.$el
-                })
+                });
                 this.particles[particle.id] = particle;
             }
         },
@@ -46,9 +46,7 @@ define(function (require) {
         },
 
         flush: function () {
-            var gradient = this.ctx.createLinearGradient(
-                0, 0, 0, this.$el.height()
-            );
+            var gradient = this.ctx.createLinearGradient(0, 0, 0, this.$el.height());
             gradient.addColorStop(0, '#191126');
             gradient.addColorStop(0.5, 'black');
             gradient.addColorStop(1, 'black');
