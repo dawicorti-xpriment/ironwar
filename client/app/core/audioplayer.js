@@ -14,12 +14,14 @@ define(function (require) {
 
         initialize: function (options) {
             this.howl = null;
+            this.currentTrack = null;
         },
 
         play: function (options) {
             var loadCallback = options.load || $.noop,
                 loop = options.loop || false;
             this.stop();
+            this.currentTrack = options.url;
             this.howl = new Howl({
                 urls: [options.url],
                 onload: loadCallback,
