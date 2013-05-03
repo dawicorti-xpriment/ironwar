@@ -1,18 +1,21 @@
 #!/usr/bin/env node
-var clientBuilder = require('./client/builder');
+var client = require('./client/index');
     nconf = require('nconf'),
     express = require('express'),
     app = express(),
-    port = 80;
+    ironwar = {};
 
 nconf.argv().env();
 nconf.file({file: 'config.json'});
-clientBuilder.build();
+client.build();
 
-app.get(/^(.+)$/, function(req, res) {
-    res.sendfile('client/' + req.params[0]);
-});
+ironwar.client = function (req, res) {
+    client.index(req, res);
+};
 
+
+app.get(/^(.+)$/, ironwar.client);
 port = nconf.get('webserver').port
-console.log('[ The Game Server is running now, at port ' + port + ' ]');
+
 app.listen(port);
+console.log('[ The Game Server is running now, at port ' + port + ' ]');

@@ -1,4 +1,5 @@
-client/ironwar.js
-client/assets/css/ironwar.css
+client/ironwar-*.js
+client/assets/css
+client/assets/less/views.less
 config.json
 node_modules
