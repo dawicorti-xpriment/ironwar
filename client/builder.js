@@ -1,21 +1,17 @@
 #!/usr/bin/env node
 
 var requirejs = require('requirejs'),
+    nconf = require('nconf'),
     fs = require('fs'),
     exec = require('child_process').exec,
     file = require('file'),
-    config = require('./config'),
     lessViews = [];
-
-String.prototype.endsWith = function(suffix) {
-    return this.match(suffix+"$") == suffix;
-};
 
 module.exports = {
 
     buildJS: function () {
         requirejs.optimize(   
-            config,
+            nconf.get("requirejs"),
             null,
             function (error) {
                 console.log(error);
@@ -26,7 +22,7 @@ module.exports = {
     buildLessModulesFile: function () {
         file.walkSync('client/app', function (dirPath, dirs, fileNames) {
             fileNames.forEach(function (fileName) {
-                if (fileName.endsWith('.less')) {
+                if (fileName.match('\.less$')) {
                     lessViews.push("@import '/" + dirPath + '/' + fileName + "';");
                 }
             });
