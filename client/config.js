@@ -1,0 +1,37 @@
+module.exports = {
+    paths: {
+        text: '../lib/require-text',
+        hbs: '../lib/require-tpl',        
+        jquery: '../lib/jquery-1.9.1',
+        handlebars: '../lib/handlebars',
+        underscore: '../lib/underscore',
+        uuid: '../lib/uuid-v4',
+        backbone: '../lib/backbone'
+    },
+    shim: {
+        hbs: {
+            deps: ['text']
+        },
+        uuid: {
+            exports: 'UUID'
+        },
+        handlebars: {
+            exports: 'Handlebars',
+        },
+        underscore: {
+            exports: '_'
+        },
+        jquery: {
+            exports: '$'
+        },
+        backbone: {
+            deps: ['jquery', 'underscore'],
+            exports: 'Backbone'
+        }
+    },
+    deps: ['hbs', '../lib/howler'],
+    baseUrl: "client/app",
+    optimize: 'none',
+    name: 'core/game',
+    out: 'client/ironwar.js'
+};
