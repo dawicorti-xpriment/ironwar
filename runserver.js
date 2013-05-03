@@ -17,17 +17,14 @@ ironwar.client = function (req, res) {
     client.index(req, res);
 };
 
-urls.register(app);
-
-app.get(/^(.+)$/, ironwar.client);
-
 app.configure(function () {
     app.set('port', nconf.get('webserver').port);
-    app.use(express.logger('dev'));
     app.use(express.bodyParser());
-    app.use(express.methodOverride());
-    app.use(app.router);
 });
+
+urls.registerAll(app);
+
+app.get(/^(.+)$/, ironwar.client);
 
 app.listen(app.get('port'), function(){
     console.log('Server is now running on port %d', app.get('port'));

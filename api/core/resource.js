@@ -8,39 +8,46 @@ function Resource(options) {
     this.initialize(options);
 }
 
-Resource.prototype.initialize = function (options) {};
+_.extend(Resource.prototype, {
 
-Resource.prototype.resolve = function (req, res) {
-    var resolve_list = [
-            {url: '^/api/' + this.name + '$', cb: this.fetchAll, method: 'get'},
-            {url: '^/api/' + this.name + '/[0-9]+$', cb: this.fetchOne, method: 'get'},
-        ],
-        result = '';
-    _.each(resolve_list, function (rule) {
-        if (req.method.toLowerCase() === rule.method) {
-            var pattern = req.url.match(new RegExp(rule.url)),
-                options = {req: req, res: res};
-            if (pattern) {
-                if (pattern.length > 3) {
-                    options.id = pattern[1];
-                }
-                rule.cb(options);
+    initialize: function (options) {
+        this.req = options.req;
+        this.res = options.res;
+    },
+
+    send: function (error, objects) {
+        this.res.send({
+            data: {
+                objects: objects
+            },
+            error: error
+        });
+    },
+
+    read: function () {
+        var Model = require('../models/' + this.model);
+        Model.find(this.send);
+    },
+
+    onError: function (error) {
+        this.res.status(400);
+        this.send(error, []);
+    },
+
+    create: function () {
+        var Model = require('../models/' + this.model),
+            options = {},
+            model;
+        _.each(_.keys(Model.schema.tree), function (name) {
+            if (_.has(this.req.body, name)) {
+                options[name] = this.req.body[name];
             }
-        }
-    }, this);
-};
+        }, this);
+        model = new Model(options);
+        model.save(this.onError);
+    }
 
-Resource.prototype.fetchAll = function (options) {
-    var Model = require('../models/' + this.model);
-    Model.find(function (err, objects) {
-        options.res.send(objects);
-    });
-};
-
-Resource.prototype.fetchOne = function (options) {
-    options.res.send('one');
-};
-
+});
 
 Resource.extend = function (def) {
     var constructor = Resource;
