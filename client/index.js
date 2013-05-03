@@ -62,12 +62,11 @@ module.exports = {
     index: function (req, res) {
         var versionId = this.getVersionId();
         if (req.url.match('^[/]?$')) {
-            console.log(req.url);
             res.send(Handlebars.compile(
                 '' + fs.readFileSync('client/index.hbs')
             )({id: versionId}));
         } else {
-            res.sendfile('client/' + req.params[0]);  
+            res.sendfile('client' + req.params[0]);  
         }
     },
 
