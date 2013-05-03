@@ -1,3 +1,6 @@
+/*jslint nomen: true*/
+"use strict";
+
 var _ = require('underscore');
 
 function Resource(options) {
@@ -30,10 +33,8 @@ Resource.prototype.resolve = function (req, res) {
 Resource.prototype.fetchAll = function (options) {
     var Model = require('../models/' + this.model);
     Model.find(function (err, objects) {
-        if (!!err) console.log(err);
         options.res.send(objects);
     });
-    
 };
 
 Resource.prototype.fetchOne = function (options) {
@@ -50,7 +51,7 @@ Resource.extend = function (def) {
     _.extend(ChildConstructor.prototype, constructor.prototype);
     _.extend(ChildConstructor.prototype, def);
     return ChildConstructor;
-}
+};
 
 module.exports = Resource;
 
