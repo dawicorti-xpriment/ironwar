@@ -12,7 +12,8 @@ define(function (require) {
     IronWarLoader = IronWarObject.extend({
 
         types: {
-            image: 'loadImageResource'
+            image: 'loadImageResource',
+            collection: 'loadCollectionResource'
         },
 
         initialize: function (options) {
@@ -25,6 +26,10 @@ define(function (require) {
             this.onProgress = options.progress || $.noop;
             this.onComplete = options.complete || $.noop;
             this.loadNextResource();
+        },
+
+        loadCollectionResource: function (resource) {
+            resource.collection.fetch({success: this.onResourceLoaded});
         },
 
         loadImageResource: function (resource) {

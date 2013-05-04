@@ -7,6 +7,8 @@ define(function (require) {
     var IronWar = {};
     IronWar.Object = require('core/object');
     IronWar.View = require('core/view');
+    IronWar.Model = require('core/model');
+    IronWar.Collection = require('core/collection');
     IronWar.Utils = require('core/utils');
     IronWar.Loader = require('core/loader');
     IronWar.AudioPlayer = require('core/audioplayer');

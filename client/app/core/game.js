@@ -11,6 +11,8 @@ define(function (require) {
 
     Game.prototype.start = function () {
         IronWar.router = new Router({parent: IronWar});
+        IronWar.Collection.prototype.router = IronWar.router;
+        IronWar.Model.prototype.router = IronWar.router;
         IronWar.router.start();
     };
 
