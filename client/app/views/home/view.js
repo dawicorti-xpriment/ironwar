@@ -10,6 +10,7 @@ define(function (require) {
         template = require('hbs!views/home/template');
 
     return IronWar.View.extend({
+        className: 'home',
         template: template,
         resources: {
             required: [
