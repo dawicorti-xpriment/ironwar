@@ -1,7 +1,8 @@
 /*jslint nomen: true*/
 "use strict";
 
-var _ = require('underscore');
+var _ = require('underscore'),
+    auth = require('./core/auth');
 
 module.resources = [
     require('./resources/users')
@@ -10,14 +11,15 @@ module.resources = [
 module.exports = {
 
     routes: [
-        {url: '^/api/%name%(/.*)*$', cb: 'read', method: 'get'},
         {url: '^/api/%name%$', cb: 'create', method: 'post'},
+        {url: '^/api/%name%(/.*)*$', cb: 'read', method: 'get'},
     ],
 
     registerUrl: function (app, ResourceType, route) {
         var name = ResourceType.prototype.name;
         app[route.method](
             new RegExp(route.url.replace('%name%', name)),
+            ResourceType.prototype.auth || auth.ensureAuthenticated,
             function (req, res) {
                 var resource = new ResourceType({req: req, res: res});
                 resource[route.cb]();
@@ -27,7 +29,9 @@ module.exports = {
 
     register: function (app, ResourceType) {
         _.each(this.routes, function (route) {
-            this.registerUrl(app, ResourceType, route);
+            if (_.indexOf(ResourceType.prototype.allowedMethods, route.method) >= 0) {
+                this.registerUrl(app, ResourceType, route);
+            }
         }, this);
     },
 

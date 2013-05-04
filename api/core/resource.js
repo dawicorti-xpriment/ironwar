@@ -1,7 +1,8 @@
 /*jslint nomen: true*/
 "use strict";
 
-var _ = require('underscore');
+var _ = require('underscore'),
+    ExcludeFilter = require('./excludefilter');
 
 function Resource(options) {
     _.bindAll(this);
@@ -10,42 +11,61 @@ function Resource(options) {
 
 _.extend(Resource.prototype, {
 
+    allowedMethods: [],
+    defaultFilters: [ExcludeFilter],
+
     initialize: function (options) {
         this.req = options.req;
         this.res = options.res;
+        this.model = require('../models/' + this.modelName);
+        this.filters = _.union(this.filters || [], this.defaultFilters);
+    },
+
+    filterObjects: function (objects) {
+        var filteredObjects = _.map(objects, function (o) { return o.toObject(); });
+        _.each(this.filters, function (FilterType) {
+            var filterObj = new FilterType({resource: this});
+            filteredObjects = filterObj.filter(filteredObjects);
+        }, this);
+        return filteredObjects;
     },
 
     send: function (error, objects) {
         this.res.send({
             data: {
-                objects: objects
+                objects: this.filterObjects(objects)
             },
             error: error
         });
     },
 
     read: function () {
-        var Model = require('../models/' + this.model);
-        Model.find(this.send);
+        this.model.find(this.send);
     },
 
     onError: function (error) {
-        this.res.status(400);
-        this.send(error, []);
+        if (error) {
+            this.res.status(400);
+            this.send(error, []);
+        }
     },
 
     create: function () {
-        var Model = require('../models/' + this.model),
-            options = {},
-            model;
-        _.each(_.keys(Model.schema.tree), function (name) {
-            if (_.has(this.req.body, name)) {
-                options[name] = this.req.body[name];
-            }
-        }, this);
-        model = new Model(options);
-        model.save(this.onError);
-    }
+        var Model = this.model,
+            options = _.pick(this.req.body, _.keys(Model.schema.tree)),
+            entry;
+        try {
+            _.extend(options, this.hydrate());
+        } catch (error) {
+            this.onError(error);
+        }
+        entry = new Model(options);
+        entry.save(this.onError);
+    },
+
+    hydrate: function () {
+        return {};
+    },
 
 });
 

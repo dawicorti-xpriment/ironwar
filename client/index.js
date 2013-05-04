@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
-var requirejs = require('requirejs'),
+var _ = require('underscore'),
+    requirejs = require('requirejs'),
     nconf = require('nconf'),
     fs = require('fs'),
     exec = require('child_process').exec,
@@ -40,6 +41,7 @@ module.exports = {
     },
 
     build: function () {
+        _.bindAll(this);
         var id = Date.now();
         this.clean();
         this.buildLessModulesFile();

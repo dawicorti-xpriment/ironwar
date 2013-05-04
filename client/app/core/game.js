@@ -11,6 +11,7 @@ define(function (require) {
 
     Game.prototype.start = function () {
         this.router.start();
+        this.router.navigate('login', {trigger: true});
     };
 
     return Game;

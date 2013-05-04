@@ -1,6 +1,11 @@
-var Resource = require('../core/resource');
+var Resource = require('../core/resource'),
+    User = require('../models/user');
 
 module.exports = Resource.extend({
+
+    allowedMethods: ['get', 'post', 'put'],
+    exclude: ['password', 'email'],
     name: 'users',
-    model: 'user'
+    modelName: User.modelName
+
 });
