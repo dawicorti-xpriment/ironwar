@@ -3,15 +3,15 @@
 
 define(function (require) {
 
-    var Router = require('core/router');
+    var IronWar = require('core/namespace'),
+        Router = require('core/router');
 
     function Game() {
-        this.router = new Router();
     }
 
     Game.prototype.start = function () {
-        this.router.start();
-        this.router.navigate('login', {trigger: true});
+        IronWar.router = new Router({parent: IronWar});
+        IronWar.router.start();
     };
 
     return Game;

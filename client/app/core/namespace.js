@@ -11,8 +11,9 @@ define(function (require) {
     IronWar.Loader = require('core/loader');
     IronWar.AudioPlayer = require('core/audioplayer');
 
-    IronWar.utils = new IronWar.Utils();
-    IronWar.audioPlayer = new IronWar.AudioPlayer();
+
+    IronWar.utils = new IronWar.Utils({parent: IronWar});
+    IronWar.audioPlayer = new IronWar.AudioPlayer({parent: IronWar});
 
     return IronWar;
 });
