@@ -10,17 +10,24 @@ var express = require('express'),
 
 nconf.argv().env();
 nconf.file({file: 'config.json'});
-app.command = nconf.get('c') || nconf.get('command') || 'runserver';
+app.command = nconf.get('c') || nconf.get('command');
+
 
 app.commands = {
 
+    initDB: function () {
+        mongoose.connect(nconf.get('mongodb').url);
+        return app;
+    },
+
     build: function () {
         client.build();
+        return app;
     },
 
     runserver: function () {
+        this.initDB();
         this.build();
-        mongoose.connect(nconf.get('mongodb').url);
         auth.init();
         app.configure(function () {
             app.set('port', nconf.get('webserver').port);
@@ -39,6 +46,7 @@ app.commands = {
         app.listen(app.get('port'), function(){
             console.log('Server is now running on port %d', app.get('port'));
         });
+        return app;
     }
 
 };
@@ -46,3 +54,5 @@ app.commands = {
 if (app.commands.hasOwnProperty(app.command)) {
     app.commands[app.command]();
 }
+
+module.exports = app;
