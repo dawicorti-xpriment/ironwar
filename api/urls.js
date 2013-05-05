@@ -5,7 +5,8 @@ var _ = require('underscore'),
     auth = require('./core/auth');
 
 module.resources = [
-    require('./resources/users')
+    require('./resources/users'),
+    require('./resources/games')
 ];
 
 module.exports = {

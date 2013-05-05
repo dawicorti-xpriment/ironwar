@@ -3,9 +3,10 @@ var Resource = require('../core/resource'),
 
 module.exports = Resource.extend({
 
-    allowedMethods: ['get', 'post', 'put'],
-    exclude: ['password', 'email'],
     name: 'users',
+
+    allowedMethods: ['post', 'get'],
+    exclude: ['password', 'email'],
     modelName: User.modelName
 
 });

@@ -19,26 +19,43 @@ body {
     height: 100%;
 }
 
-input, button {
+input {
     width: 10em;
     height: 1.5em;
     border: 1px solid darken(@jardin_magico, 20);
     background-color: darken(@deep_blue_corn, 10);
     color: @jardin_magico;
     cursor: default;
+
+    &:active {
+        border: 1px solid @jardin_magico;
+        background-color: @deep_blue_corn;
+    }
+    
+    &:-moz-placeholder, textarea:-moz-placeholder {
+        color: darken(@jardin_magico, 20);
+    }
+     
+    &::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+        color: darken(@jardin_magico, 20);
+    }
+
 }
 
-input:active, button:active {
+button {
+    color: @jardin_magico;
+    background-color: @lost_love_transparent;
     border: 1px solid @jardin_magico;
-    background-color: @deep_blue_corn;
-}
+    cursor: default;
 
-input:-moz-placeholder, textarea:-moz-placeholder {
-    color: darken(@jardin_magico, 20);
-}
- 
-input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
-    color: darken(@jardin_magico, 20);
+    &:active {
+        color: white;
+    }
+
+    &:hover {
+       border: 1px solid white;
+    }
+
 }
 
 label {

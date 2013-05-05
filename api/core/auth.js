@@ -33,7 +33,7 @@ auth.strategy = function () {
 auth.listen = function (app) {
     app.post(
         '/login',
-        passport.authenticate('local', {failureRedirect: '/api/users', failureFlash: false}),
+        passport.authenticate('local', {failureRedirect: '/api/games', failureFlash: false}),
         function (req, res) {
             res.redirect('/');
         }
