@@ -38,6 +38,7 @@ define(function (require) {
                 }
                 this.$el.html(this.getPrototype()._template(this));
             }
+            this.delegateEvents();
         },
 
         render: function () {

@@ -8,7 +8,7 @@ define(function (require) {
         $ = require('jquery'),
         _  = require('underscore'),
         ParticlesBackground = require('views/particlesbackground/view'),
-        LoginForm = require('views/loginform/view'),
+        LoginPage = require('views/loginpage/view'),
         Home = require('views/home/view'),
         InterfaceSpace = require('views/interfacespace/view');
 
@@ -26,7 +26,7 @@ define(function (require) {
         },
 
         login: function () {
-            this.renderInterfaceSpace(LoginForm);
+            this.renderInterfaceSpace(LoginPage);
         },
 
         fallback: function () {

@@ -14,7 +14,11 @@ var app = require('../app').commands.initDB(),
     });
 
 user.save(function (err, doc) {
-    if (err) console.log(err);
+    if (err) {
+        console.log(err);
+    } else {
+        console.log('user "' + username + '" was successfully created');
+    }
+    process.exit();
 });
 
-process.exit();

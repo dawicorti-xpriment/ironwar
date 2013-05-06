@@ -7,11 +7,12 @@ define(function (require) {
     var IronWar = require('core/namespace'),
         $ = require('jquery'),
         sha256 = require('sha256'),
-        template = require('hbs!views/loginform/template');
+        template = require('hbs!views/loginpage/template');
 
     return IronWar.View.extend({
 
         template: template,
+        className: 'login-page',
 
         resources: {
             required: [
