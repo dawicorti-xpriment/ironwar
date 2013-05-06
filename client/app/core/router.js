@@ -9,11 +9,10 @@ define(function (require) {
         _  = require('underscore'),
         ParticlesBackground = require('views/particlesbackground/view'),
         LoginForm = require('views/loginform/view'),
-        Home = require('views/home/view');
+        Home = require('views/home/view'),
+        InterfaceSpace = require('views/interfacespace/view');
 
     return Backbone.Router.extend({
-
-        interfaceTrack: '/assets/music/la_busqueda_de_lanna.ogg',
 
         routes: {
             'home': 'home',
@@ -38,30 +37,15 @@ define(function (require) {
             this.renderInterfaceSpace(Home);
         },
 
-        onTrackLoaded: function () {
-            if ($('.' + ParticlesBackground.prototype.className, $('body')).length === 0) {
-                $('body').append((new ParticlesBackground()).render().el);
-            }
-            this.render(this.next.ViewType, this.next.options);
-        },
-
         renderInterfaceSpace: function (ViewType, options) {
-            if (this.parent.audioPlayer.currentTrack !== this.interfaceTrack) {
-                this.next = {
-                    ViewType: ViewType,
-                    options: options
-                };
-                this.parent.audioPlayer.play({
-                    url: this.interfaceTrack,
-                    loop: true,
-                    load: this.onTrackLoaded
-                });
+            if (!this.interfaceSpace) {
+                this.interfaceSpace = (new InterfaceSpace({
+                    child: new ViewType(options)
+                })).render();
             } else {
-                if ($('.' + ParticlesBackground.prototype.className, $('body')).length === 0) {
-                    $('body').append((new ParticlesBackground()).render().el);
-                }
-                this.render(ViewType, options);
+                this.interfaceSpace.setChild(new ViewType(options));
             }
+            this.container.html(this.interfaceSpace.el);
         },
 
         render: function (ViewType, options) {
@@ -70,8 +54,7 @@ define(function (require) {
         },
 
         start: function () {
-            this.container = $('<div></div>').attr('id', 'iron-war');
-            $(window.document.body).html(this.container);
+            this.container = $('#iron-war');
             Backbone.history.start();
         }
 

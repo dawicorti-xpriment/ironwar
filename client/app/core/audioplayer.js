@@ -14,19 +14,17 @@ define(function (require) {
 
         initialize: function (options) {
             this.howl = null;
-            this.currentTrack = null;
+        },
+
+        load: function (options) {
+            var loadCallback = options.load || $.noop;
+            this.howl = new Howl({
+                urls: [options.url],
+                onload: loadCallback
+            });
         },
 
         play: function (options) {
-            var loadCallback = options.load || $.noop,
-                loop = options.loop || false;
-            this.stop();
-            this.currentTrack = options.url;
-            this.howl = new Howl({
-                urls: [options.url],
-                onload: loadCallback,
-                loop: loop
-            });
             this.howl.play();
         },
 

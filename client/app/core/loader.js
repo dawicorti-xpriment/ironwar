@@ -7,13 +7,15 @@ define(function (require) {
     var _ = require('underscore'),
         $ = require('jquery'),
         IronWarObject = require('core/object'),
+        IronWarAudioPlayer = require('core/audioplayer'),
         IronWarLoader;
 
     IronWarLoader = IronWarObject.extend({
 
         types: {
             image: 'loadImageResource',
-            collection: 'loadCollectionResource'
+            collection: 'loadCollectionResource',
+            audio: 'loadAudioResource'
         },
 
         initialize: function (options) {
@@ -37,6 +39,15 @@ define(function (require) {
             image.load(this.onResourceLoaded);
             this.loadedResources[resource.name] = image;
             image.attr('src', resource.path);
+        },
+
+        loadAudioResource: function (resource) {
+            var audioPlayer = new IronWarAudioPlayer();
+            this.loadedResources[resource.name] = audioPlayer;
+            audioPlayer.load({
+                url: resource.url,
+                load: this.onResourceLoaded
+            });
         },
 
         loadNextResource: function () {
