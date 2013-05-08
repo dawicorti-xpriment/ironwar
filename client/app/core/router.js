@@ -9,7 +9,8 @@ define(function (require) {
         _  = require('underscore'),
         ParticlesBackground = require('views/particlesbackground/view'),
         LoginPage = require('views/loginpage/view'),
-        Home = require('views/home/view'),
+        HomePage = require('views/homepage/view'),
+        JoinPage = require('views/joinpage/view'),
         InterfaceSpace = require('views/interfacespace/view');
 
     return Backbone.Router.extend({
@@ -17,6 +18,7 @@ define(function (require) {
         routes: {
             'home': 'home',
             'login': 'login',
+            'join': 'join',
             '(:fallback)': 'fallback'
         },
 
@@ -34,7 +36,11 @@ define(function (require) {
         },
 
         home: function () {
-            this.renderInterfaceSpace(Home);
+            this.renderInterfaceSpace(HomePage);
+        },
+
+        join: function () {
+            this.renderInterfaceSpace(JoinPage);
         },
 
         renderInterfaceSpace: function (ViewType, options) {

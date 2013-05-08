@@ -1,0 +1,44 @@
+.page {
+
+    > .join-menu {
+        position: absolute;
+        left: 2em;
+        top: 80px;
+        right: 30em;
+        bottom: 3em;
+
+        td, th {
+            min-width: 20em;
+            text-align: center;
+        }
+
+        table {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border: 1px solid @jardin_magico;
+            color: @jardin_magico;
+
+            thead {
+                position: absolute;
+                top: 0;
+                height: 2em;
+                left: 0;
+                width: 100%;
+                border-bottom: 1px solid @jardin_magico;
+            }
+
+            tbody {
+                position: absolute;
+                top: 2em;
+                left: 0;
+                width: 100%;
+                bottom: 0;
+                
+                tr {
+                    height: 3em;
+                }
+            }
+        }
+    }
+}

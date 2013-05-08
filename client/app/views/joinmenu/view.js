@@ -6,7 +6,7 @@ define(function (require) {
 
     var IronWar = require('core/namespace'),
         $ = require('jquery'),
-        sha256 = require('sha256'),
+        Games = require('collections/games'),
         template = require('hbs!views/joinmenu/template');
 
     return IronWar.View.extend({
@@ -14,6 +14,15 @@ define(function (require) {
         template: template,
         className: 'join-menu',
 
+        resources: {
+            required: [
+                {name: 'games', type: 'collection', collection: new Games()}
+            ]
+        },
+
+        games: function () {
+            return this.resources.loaded.games.toJSON();
+        }
     });
 
 });

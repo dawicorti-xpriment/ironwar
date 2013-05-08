@@ -1,0 +1,35 @@
+.login-form {
+    position: absolute;
+    bottom: 0;
+    height: 80px;
+    width: 100%;
+    border-top: 1px solid @jardin_magico;
+    
+    input, button {
+        position: absolute;
+        width: 200px;
+        top: 20px;
+
+        &.connect {
+            right: 0;
+        }
+        
+        &.password {
+            right: 220px;
+        }
+
+        &.user {
+            right: 440px;
+        }
+
+    }
+
+    .error {
+        position: absolute;
+        right: 0;
+        text-align: right;
+        bottom: 0;
+        color: lighten(@jardin_magico, 20);
+    }
+    
+}

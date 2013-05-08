@@ -6,6 +6,11 @@ define(function (require) {
 
     var IronWar = require('core/namespace');
 
-    return IronWar.Model.extend({});
+    return IronWar.View.extend({
+
+        className: 'header',
+        tagName: 'header'
+
+    });
 
 });

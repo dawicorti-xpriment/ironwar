@@ -6,13 +6,13 @@ define(function (require) {
 
     var IronWar = require('core/namespace'),
         $ = require('jquery'),
-        sha256 = require('sha256'),
-        template = require('hbs!views/loginpage/template');
+        template = require('hbs!views/loginpage/template'),
+        LoginForm = require('views/loginform/view');
 
     return IronWar.View.extend({
 
         template: template,
-        className: 'login-page',
+        className: 'login-page page',
 
         resources: {
             required: [
@@ -20,30 +20,9 @@ define(function (require) {
             ]
         },
 
-        events: {
-            'click .login-form .connect': 'auth',
-            'keypress .login-form input': 'checkKey'
-        },
-
-        checkKey: function (event) {
-            if (event.which === 13) {
-                this.auth();
-            }
-        },
-
-        auth: function () {
-            $.post('/login', {
-                username: $('.login-form .user', this.$el).val(),
-                password: sha256($('.login-form .password', this.$el).val())
-            }).done(this.onAuthSuccess).fail(this.onAuthFail);
-        },
-
-        onAuthSuccess: function () {
-            IronWar.router.navigate('home', {trigger: true});
-        },
-
-        onAuthFail: function () {
-            $('.error', this.$el).html('Authentication failed : Bad login or password');
+        fill: function () {
+            IronWar.View.prototype.fill.apply(this);
+            this.$el.append(new LoginForm().render().el);
         }
 
     });

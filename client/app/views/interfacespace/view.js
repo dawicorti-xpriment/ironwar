@@ -6,8 +6,6 @@ define(function (require) {
 
     var IronWar = require('core/namespace'),
         $ = require('jquery'),
-        Users = require('collections/users'),
-        template = require('hbs!views/home/template'),
         SpinnerView = require('views/spinner/view'),
         ParticlesBackground = require('views/particlesbackground/view');
 

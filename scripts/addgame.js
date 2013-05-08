@@ -7,12 +7,12 @@ var app = require('../app').commands.initDB(),
     username = nconf.get('u') || nconf.get('username'),
     name = nconf.get('n') || nconf.get('name');
 
-User.find({username: username}, function (err, user) {
+User.findOne({username: username}, function (err, user) {
     if (err) {
         console.log(err);
         process.exit();
     } else {
-        var game = new Game({name: name, user: user.id});
+        var game = new Game({name: name, user: user._id});
         game.save(function (err) {
             if (err) {
                 console.log(err);

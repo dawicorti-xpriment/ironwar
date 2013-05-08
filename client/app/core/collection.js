@@ -13,19 +13,12 @@ define(function (require) {
     IronWarCollection = Backbone.Collection.extend({
 
         construct: function (options) {
-            options  = options || {};
-            if (options.url) {
-                this.url = options.url;
-            }
-            if (options.model) {
-                this.model = options.model;
-            }
-            if (options.comparator) {
-                this.comparator = options.comparator;
-            }
-            this._reset();
+            Backbone.Collection.apply(this, [[], options]);
             this.on('error', this.onError);
-            this.initialize(options);
+        },
+
+        parse: function (response) {
+            return response.data.objects;
         },
 
         onError: function () {

@@ -13,6 +13,8 @@ _.extend(Resource.prototype, {
 
     allowedMethods: [],
     defaultFilters: [ExcludeFilter],
+    criteria: {},
+    populate: [],
 
     initialize: function (options) {
         this.req = options.req;
@@ -22,12 +24,17 @@ _.extend(Resource.prototype, {
     },
 
     filterObjects: function (objects) {
-        var filteredObjects = _.map(objects, function (o) { return o.toObject(); });
+        var datas = [];
+        _.each(objects, function (object) {
+            var data = object.toObject();
+            this.dehydrate(object, data);
+            datas.push(data);
+        }, this);
         _.each(this.filters, function (FilterType) {
             var filterObj = new FilterType({resource: this});
-            filteredObjects = filterObj.filter(filteredObjects);
+            datas = filterObj.filter(datas);
         }, this);
-        return filteredObjects;
+        return datas;
     },
 
     send: function (error, objects) {
@@ -40,7 +47,11 @@ _.extend(Resource.prototype, {
     },
 
     read: function () {
-        this.model.find(this.send);
+        this.model = this.model.find(this.criteria);
+        _.each(this.populate, function (field) {
+            this.model = this.model.populate(field);
+        }, this);
+        this.model.exec(this.send);
     },
 
     onError: function (error) {
@@ -53,19 +64,14 @@ _.extend(Resource.prototype, {
     create: function () {
         var Model = this.model,
             options = _.pick(this.req.body, _.keys(Model.schema.tree)),
-            entry;
-        try {
-            _.extend(options, this.hydrate());
-        } catch (error) {
-            this.onError(error);
-        }
-        entry = new Model(options);
-        entry.save(this.onError);
+            object = new Model(options);
+        this.hydrate(object);
+        object.save(this.onError);
     },
 
-    hydrate: function () {
-        return {};
-    },
+    hydrate: function (object) {},
+
+    dehydrate: function (object, data) {},
 
 });
 

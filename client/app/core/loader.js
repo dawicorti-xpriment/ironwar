@@ -31,6 +31,7 @@ define(function (require) {
         },
 
         loadCollectionResource: function (resource) {
+            this.loadedResources[resource.name] = resource.collection;
             resource.collection.fetch({success: this.onResourceLoaded});
         },
 
