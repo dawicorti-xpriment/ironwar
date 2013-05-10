@@ -13,8 +13,8 @@ define(function (require) {
         className: 'particles-background',
         tagName: 'canvas',
 
-        windMaxVelocity: 0.001,
-        windMinVelocity: 0.0005,
+        windMaxVelocity: 0.01,
+        windMinVelocity: 0.005,
         windDirection: 1,
 
         animationLoop: function () {
@@ -32,11 +32,6 @@ define(function (require) {
                     }
                 }, this);
                 this.particles = _.omit(this.particles, toDelete);
-                this.wind.x += this.windDirection * (
-                    Math.random() * (
-                        this.windMaxVelocity - this.windMinVelocity
-                    ) + this.windMinVelocity
-                );
             }
             this.animate();
         },
@@ -70,9 +65,18 @@ define(function (require) {
             this.wind.y = -(Math.random() * (this.windMaxVelocity - this.windMinVelocity) + this.windMinVelocity);
         },
 
+        updateWind: function () {
+            this.wind.x += this.windDirection * (
+                Math.random() * (
+                    this.windMaxVelocity - this.windMinVelocity
+                ) + this.windMinVelocity
+            );
+        },
+
         render: function () {
             this.wind = {x: 0, y: 0};
             setInterval(this.changeWindDirection, 10000);
+            setInterval(this.updateWind, 100);
             this.timerId = null;
             this.$el.attr('width', window.innerWidth);
             this.$el.attr('height', window.innerHeight);
