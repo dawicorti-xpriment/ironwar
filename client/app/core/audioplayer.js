@@ -24,7 +24,13 @@ define(function (require) {
             });
         },
 
-        play: function (options) {
+        play: function () {
+            this.howl.loop(false);
+            this.howl.play();
+        },
+
+        loop: function () {
+            this.howl.loop(true);
             this.howl.play();
         },
 

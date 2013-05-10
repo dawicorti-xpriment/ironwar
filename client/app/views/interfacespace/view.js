@@ -28,7 +28,7 @@ define(function (require) {
 
         fill: function () {
             IronWar.View.prototype.fill.apply(this);
-            this.resources.loaded.track.play();
+            this.resources.loaded.track.loop();
             this.$el.empty();
             this.$el.append(
                 new ParticlesBackground().render().el,

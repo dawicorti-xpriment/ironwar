@@ -37,13 +37,17 @@ define(function (require) {
         },
 
         addParticle: function () {
-            if (_.size(this.particles) < 1000) {
-                var particle = new Particle({
-                    ctx: this.ctx,
-                    $canvas: this.$el,
-                    wind: this.wind
-                });
-                this.particles[particle.id] = particle;
+            var index = 0,
+                particle;
+            if (_.size(this.particles) < 100) {
+                for (index = 0; index < 10; index += 1) {
+                    particle = new Particle({
+                        ctx: this.ctx,
+                        $canvas: this.$el,
+                        wind: this.wind
+                    });
+                    this.particles[particle.id] = particle;
+                }
             }
         },
 
@@ -75,7 +79,7 @@ define(function (require) {
 
         render: function () {
             this.wind = {x: 0, y: 0};
-            setInterval(this.changeWindDirection, 10000);
+            setInterval(this.changeWindDirection, 7000);
             setInterval(this.updateWind, 100);
             this.timerId = null;
             this.$el.attr('width', window.innerWidth);
