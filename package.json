@@ -13,6 +13,7 @@
           "underscore": "x.x.x",
           "passport": "0.1.x",
           "passport-local": "0.1.x",
-          "crypto": "0.x"
+          "crypto": "0.x",
+          "sockjs": "0.3.x"
       }
 }

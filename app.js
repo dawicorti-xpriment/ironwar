@@ -7,13 +7,13 @@ var express = require('express'),
     auth = require('./api/core/auth'),
     client = require('./client/index'),
     urls = require('./api/urls')
-    io = require('socket.io'),
+    sockjs  = require('sockjs'),
+    http = require('http'),
     warserver = require('./warserver/warserver');
 
 nconf.argv().env();
 nconf.file({file: 'config.json'});
 app.command = nconf.get('c') || nconf.get('command');
-
 
 app.commands = {
 
@@ -27,10 +27,7 @@ app.commands = {
         return app;
     },
 
-    runserver: function () {
-        this.initDB();
-        this.build();
-        auth.init();
+    prepareExpress: function () {
         app.configure(function () {
             app.set('port', nconf.get('webserver').port);
             app.use(express.logger());
@@ -42,13 +39,23 @@ app.commands = {
             app.use(passport.session());
             app.use(app.router);
         });
+        return app;
+    },
+
+    runserver: function () {
+        var sockServer = sockjs.createServer()
+            webServer = http.createServer(app);
+        sockServer.installHandlers(webServer, {prefix:'/war'});
+        this.initDB();
+        this.build();
+        auth.init();
+        app.commands.prepareExpress();
         urls.registerAll(app);
         auth.listen(app);
         app.get(/^(.+)$/, client.index);
-        app.listen(app.get('port'), function(){
-            console.log('Server is now running on port %d', app.get('port'));
-        });
-        io.listen(nconf.get('warserver').port).sockets.on('connection', warserver.start);
+        console.log('Server is now running on port %d', app.get('port'));
+        webServer.listen(app.get('port'), '0.0.0.0');
+        sockServer.on('connection', warserver.start);
         return app;
     }
 

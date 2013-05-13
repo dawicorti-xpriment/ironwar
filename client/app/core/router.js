@@ -10,6 +10,7 @@ define(function (require) {
         ParticlesBackground = require('views/particlesbackground/view'),
         LoginPage = require('views/loginpage/view'),
         HomePage = require('views/homepage/view'),
+        CreatePage = require('views/createpage/view'),
         JoinPage = require('views/joinpage/view'),
         InterfaceSpace = require('views/interfacespace/view');
 
@@ -19,6 +20,7 @@ define(function (require) {
             'home': 'home',
             'login': 'login',
             'join': 'join',
+            'create': 'create',
             '(:fallback)': 'fallback'
         },
 
@@ -41,6 +43,10 @@ define(function (require) {
 
         join: function () {
             this.renderInterfaceSpace(JoinPage);
+        },
+
+        create: function () {
+            this.renderInterfaceSpace(CreatePage);
         },
 
         renderInterfaceSpace: function (ViewType, options) {

@@ -1,6 +1,6 @@
 "use strict";
 
-var utils = require('./utils'),
+var wrapper = require('./wrapper'),
     authAPI = require('../api/core/auth'),
     auth = {};
 
@@ -14,10 +14,12 @@ auth.createToken = function (socket, data) {
     console.log(socket);
 };
 
+auth.messages = {
+    'auth:token:create': auth.createToken
+};
+
 auth.start = function (socket) {
-    utils.serve({
-        'auth:token:create': auth.createToken
-    });
+    wrapper.wrap(socket, auth.messages);
     socket.emit('auth:request');
 };
 
