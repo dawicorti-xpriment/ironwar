@@ -6,7 +6,9 @@ var express = require('express'),
     passport = require('passport'),
     auth = require('./api/core/auth'),
     client = require('./client/index'),
-    urls = require('./api/urls');
+    urls = require('./api/urls')
+    io = require('socket.io'),
+    warserver = require('./warserver/warserver');
 
 nconf.argv().env();
 nconf.file({file: 'config.json'});
@@ -46,6 +48,7 @@ app.commands = {
         app.listen(app.get('port'), function(){
             console.log('Server is now running on port %d', app.get('port'));
         });
+        io.listen(nconf.get('warserver').port).sockets.on('connection', warserver.start);
         return app;
     }
 

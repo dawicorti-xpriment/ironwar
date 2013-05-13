@@ -1,19 +1,15 @@
-<table>
-    <thead>
-        <tr>
-            <th>Owner</th>
-            <th>Game name</th>
-        </tr>
-    </thead>
-    <tbody>
-    
-    {{#games}}
-        <tr>
-            <td>{{user}}</td>
-            <td>{{name}}</td>
-        </tr>
-    {{/games}}
+<div class="header">
+    <div class="title">Owner</div>
+    <div class="title"> Game name</div>
+</div>
+<div class="body">
 
-    </tbody>
+{{#games}}
+    <div class="line">
+        <span class="cell">{{user}}</span>
+        <span class="cell">{{name}}</span>
+    </div>
+{{/games}}
 
-</table>
+</div>
+

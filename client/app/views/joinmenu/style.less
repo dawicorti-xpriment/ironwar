@@ -6,38 +6,39 @@
         top: 80px;
         right: 30em;
         bottom: 3em;
+        border: 2px solid @jardin_magico;
+        color: @jardin_magico;
 
-        td, th {
-            min-width: 20em;
+        .cell, .title {
+            display: inline-block;
+            position: relative;
+            padding-top: 1em;
+            width: 20em;
             text-align: center;
         }
 
-        table {
-            position: relative;
+        .header {
+            position: absolute;
+            background-color: @lost_love_note;
+            color: white;
+            top: 0;
+            height: 3em;
+            left: 0;
             width: 100%;
-            height: 100%;
-            border: 1px solid @jardin_magico;
-            color: @jardin_magico;
+            border-bottom: 1px solid @jardin_magico;
+        }
 
-            thead {
-                position: absolute;
-                top: 0;
-                height: 2em;
-                left: 0;
+        .body {
+            position: absolute;
+            background-color: @lost_love_transparent;
+            top: 3em;
+            left: 0;
+            width: 100%;
+            bottom: 0;
+            
+            .line {
                 width: 100%;
-                border-bottom: 1px solid @jardin_magico;
-            }
-
-            tbody {
-                position: absolute;
-                top: 2em;
-                left: 0;
-                width: 100%;
-                bottom: 0;
-                
-                tr {
-                    height: 3em;
-                }
+                height: 3em;
             }
         }
     }
