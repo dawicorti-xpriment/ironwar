@@ -14,6 +14,15 @@ define(function (require) {
 
         construct: function (options) {
             Backbone.Model.apply(this, [options]);
+        },
+
+        parse: function (response) {
+            var objects = response.data.objects || [];
+            return objects.length > 0 ? objects[0] : {};
+        },
+
+        url: function () {
+            return '/api/' + this.name;
         }
 
     });

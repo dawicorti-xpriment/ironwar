@@ -5,7 +5,7 @@ var Resource = require('../core/resource'),
 
 module.exports = Resource.extend({
 
-    name: 'games',
+    name: 'game',
     populate: ['user'],
 
     exclude: ['password'],

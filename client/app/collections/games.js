@@ -4,14 +4,10 @@
 
 define(function (require) {
 
-    var IronWar = require('core/namespace'),
-        Game = require('models/game');
+    var IronWar = require('core/namespace');
 
     return IronWar.Collection.extend({
-
-        name: 'games',
-        model: Game
-
+        name: 'game'
     });
 
 });

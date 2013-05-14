@@ -14,6 +14,7 @@
           "passport": "0.1.x",
           "passport-local": "0.1.x",
           "crypto": "0.x",
-          "sockjs": "0.3.x"
+          "sockjs": "0.3.x",
+          "node-uuid": "1.4.x"
       }
 }

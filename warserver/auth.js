@@ -1,17 +1,12 @@
+/*jslint nomen: true*/
 "use strict";
 
 var wrapper = require('./wrapper'),
     authAPI = require('../api/core/auth'),
     auth = {};
 
-auth.tokens = {};
-
-auth.authenticated = function (socket, data, callback) {
-
-};
-
-auth.createToken = function (socket, data) {
-    console.log(socket);
+auth.authenticated = function (callback) {
+    auth._callback = callback;
 };
 
 auth.messages = {

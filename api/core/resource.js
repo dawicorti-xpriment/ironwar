@@ -19,7 +19,7 @@ _.extend(Resource.prototype, {
     initialize: function (options) {
         this.req = options.req;
         this.res = options.res;
-        this.model = require('../models/' + this.modelName);
+        this.model = require('../models/' + this.modelName.toLowerCase());
         this.filters = _.union(this.filters || [], this.defaultFilters);
     },
 
@@ -38,6 +38,9 @@ _.extend(Resource.prototype, {
     },
 
     send: function (error, objects) {
+        if (error) {
+            this.res.status(400);
+        }
         this.res.send({
             data: {
                 objects: this.filterObjects(objects)
@@ -54,19 +57,14 @@ _.extend(Resource.prototype, {
         this.model.exec(this.send);
     },
 
-    onError: function (error) {
-        if (error) {
-            this.res.status(400);
-            this.send(error, []);
-        }
-    },
-
     create: function () {
         var Model = this.model,
             options = _.pick(this.req.body, _.keys(Model.schema.tree)),
             object = new Model(options);
         this.hydrate(object);
-        object.save(this.onError);
+        object.save(_.bind(function (error) {
+            this.send(error, [object]);
+        }, this));
     },
 
     hydrate: function (object) {},
