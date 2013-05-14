@@ -31,9 +31,7 @@ define(function (require) {
 
         loop: function () {
             this.howl.loop(true);
-
-                            /* TO DELETE
-            this.howl.play();*/
+            this.howl.play();
         },
 
         stop: function () {

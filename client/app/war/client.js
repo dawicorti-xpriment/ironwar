@@ -18,6 +18,7 @@ define(function (require) {
 
         onMessage: function (rawData) {
             var data = JSON.parse(rawData);
+            console.log(data);
             if (_.has(this.callbacks, data.name)) {
                 this.callbacks[data.name](this, data);
             }
